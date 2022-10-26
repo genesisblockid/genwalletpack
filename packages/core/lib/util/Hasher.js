@@ -1,6 +1,6 @@
 import Seeder from "../services/secure/Seeder";
 
-const ecc = require('eosjs-ecc');
+const ecc = require('genjs-ecc');
 const scrypt = require('scrypt-async');
 
 export default class Hasher {

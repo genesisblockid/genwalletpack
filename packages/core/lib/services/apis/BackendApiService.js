@@ -1,9 +1,9 @@
 import IdGenerator from "../../util/IdGenerator";
-import ecc from 'eosjs-ecc';
+import ecc from 'genjs-ecc';
 
 // const baseUrl = `http://localhost:6547/v1/`;
-const baseUrl = `https://api.get-scatter.com/v1/`;
-const PROOF_KEY = 'EOS62b3WxfuRyP7JYaDbF3gr49joLWYpsF3kPmo2HPxPuGRDiRUwj';
+const baseUrl = `https://explorer.vexanium.com/v1/`;
+const PROOF_KEY = 'VEX62b3WxfuRyP7JYaDbF3gr49joLWYpsF3kPmo2HPxPuGRDiRUwj';
 
 const getHeaders = () => {
 	const proof = IdGenerator.text(64);

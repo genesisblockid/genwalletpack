@@ -26,7 +26,7 @@ import Framework from "../utility/Framework";
 import EventService from "../utility/EventService";
 import SigningService from "../../services/secure/SigningService";
 
-import ecc from 'eosjs-ecc';
+import ecc from 'genjs-ecc';
 
 let blocked = [];
 export default class ApiService {

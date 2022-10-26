@@ -15,9 +15,9 @@ import StoreService from            "@walletpack/core/services/utility/StoreServ
 import EventService from            "@walletpack/core/services/utility/EventService";
 import SigningService from          "@walletpack/core/services/secure/SigningService";
 import {POST} from                  "@walletpack/core/services/apis/BackendApiService";
-import ecc from 'eosjs-ecc';
-import { Api, JsonRpc } from 'eosjs';
-import * as numeric from "eosjs/dist/eosjs-numeric";
+import ecc from 'genjs-ecc';
+import { Api, JsonRpc } from 'genblockidjs';
+import * as numeric from "genblockid/dist/vexjs-numeric";
 
 import LightAPI from './api';
 
@@ -34,7 +34,7 @@ const getEosjsApi = rpc => {
 
 export const eosjsUtil = getEosjsApi();
 
-const MAINNET_CHAIN_ID = 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906';
+const MAINNET_CHAIN_ID = 'f9f432b1851b5c179d2091a96f593aaed50ec7466b74f89301f957a83e56ce1f';
 
 
 
@@ -101,10 +101,10 @@ const parseErrorMessage = (result) => {
 
 
 const EXPLORER = {
-	"name":"Bloks",
-	"account":"https://bloks.io/account/{x}",
-	"transaction":"https://bloks.io/transaction/{x}",
-	"block":"https://bloks.io/block/{x}"
+	"name":"Explorer",
+	"account":"https://explorer.vexanium.com/account/{x}",
+	"transaction":"https://explorer.vexanium.com/transaction/{x}",
+	"block":"https://explorer.vexanium.com/block/{x}"
 };
 
 
@@ -145,7 +145,7 @@ export default class EOS extends Plugin {
 	accountFormatter(account){ return `${account.name}@${account.authority}` }
 	returnableAccount(account){ return { name:account.name, authority:account.authority, publicKey:account.publicKey, blockchain:Blockchains.EOSIO }}
 
-	contractPlaceholder(){ return 'eosio.token'; }
+	contractPlaceholder(){ return 'vex.token'; }
 
 	checkNetwork(network){
 		return Promise.race([
@@ -155,7 +155,7 @@ export default class EOS extends Plugin {
 	}
 
 	getEndorsedNetwork(){
-		return new Network('EOS Mainnet', 'https', 'nodes.get-scatter.com', 443, Blockchains.EOSIO, MAINNET_CHAIN_ID)
+		return new Network('VEX Mainnet', 'https', 'explorer.vexanium.com', 6960, Blockchains.EOSIO, MAINNET_CHAIN_ID)
 	}
 
 	isEndorsedNetwork(network){
@@ -176,7 +176,7 @@ export default class EOS extends Plugin {
 
 			await eos.transact({
 				actions:[{
-					account: 'eosio',
+					account: 'vexcore',
 					name:'voteproducer',
 					authorization: [{
 						actor: account.sendable(),
@@ -241,7 +241,7 @@ export default class EOS extends Plugin {
 				const parent = permission === 'owner' ? '' : 'owner';
 
 				return {
-					account: 'eosio',
+					account: 'vexcore',
 					name:'updateauth',
 					authorization: [{
 						actor: account.sendable(),
@@ -305,7 +305,7 @@ export default class EOS extends Plugin {
 
 			await eos.transact({
 				actions:[{
-					account: 'eosio',
+					account: 'vexcore',
 					name:'refund',
 					authorization: [{
 						actor: account.sendable(),
@@ -475,12 +475,12 @@ export default class EOS extends Plugin {
 			return fetch(`${account.network().fullhost()}/v1/chain/get_table_rows`, {
 				method:"POST",
 				body:JSON.stringify({
-					code: "eosio",
+					code: "vexcore",
 					index_position: 1,
 					json: true,
 					limit: 1,
 					lower_bound: account.name,
-					scope: "eosio",
+					scope: "vexcore",
 					table: "rexbal",
 				})
 			}).then(x => x.json()).then(result => {
@@ -534,14 +534,14 @@ export default class EOS extends Plugin {
 	}
 
 	defaultDecimals(){ return 4; }
-	defaultToken(){ return new Token(Blockchains.EOSIO, 'eosio.token', 'EOS', 'EOS', this.defaultDecimals(), MAINNET_CHAIN_ID) }
+	defaultToken(){ return new Token(Blockchains.EOSIO, 'vex.token', 'VEX', 'VEX', this.defaultDecimals(), MAINNET_CHAIN_ID) }
 
 	async getRamPrice(network){
 		const parseAsset = asset => asset.split(' ')[0];
 		const getRamInfo = async () => getTableRows(network, {
 			json:true,
-			code:'eosio',
-			scope:'eosio',
+			code:'vexcore',
+			scope:'vexcore',
 			table:'rammarket'
 		}).then(res => {
 			const ramInfo = res.rows[0];
@@ -583,7 +583,7 @@ export default class EOS extends Plugin {
 
 			await eos.transact({
 				actions:[{
-					account: 'eosio',
+					account: 'vexcore',
 					name:'newaccount',
 					authorization,
 					data:{
@@ -594,7 +594,7 @@ export default class EOS extends Plugin {
 					},
 				},
 					{
-						account: 'eosio',
+						account: 'vexcore',
 						name:'buyrambytes',
 						authorization,
 						data:{
@@ -604,7 +604,7 @@ export default class EOS extends Plugin {
 						},
 					},
 					{
-						account: 'eosio',
+						account: 'vexcore',
 						name:'delegatebw',
 						authorization,
 						data:{
@@ -647,7 +647,7 @@ export default class EOS extends Plugin {
 
 			await eos.transact({
 				actions:[{
-					account: 'eosio',
+					account: 'vexcore',
 					name,
 					authorization: [{
 						actor: account.sendable(),
@@ -683,7 +683,7 @@ export default class EOS extends Plugin {
 
 			await eos.transact({
 				actions:[{
-					account: 'eosio',
+					account: 'vexcore',
 					name,
 					authorization: [{
 						actor: account.sendable(),

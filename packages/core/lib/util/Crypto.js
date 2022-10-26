@@ -1,4 +1,4 @@
-import ecc from 'eosjs-ecc';
+import ecc from 'genjs-ecc';
 const {PrivateKey} = ecc;
 
 import PluginRepository from '../plugins/PluginRepository';

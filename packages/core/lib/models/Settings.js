@@ -37,8 +37,8 @@ export default class Settings {
 
 	    // {contract:[actions]}
 	    this.blacklistActions = {
-	    	'eos::eosio':['updateauth', 'linkauth'],
-	    	'eos::eosio.msig':['approve'],
+	    	'eos::vexcore':['updateauth', 'linkauth'],
+	    	'eos::vex.msig':['approve'],
 	    };
 
 	    this.balanceFilters = {};

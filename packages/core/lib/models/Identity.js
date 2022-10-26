@@ -119,7 +119,7 @@ export class LocationInformation {
 /*                 Identity                 */
 /********************************************/
 
-let {PrivateKey} = require('eosjs-ecc');
+let {PrivateKey} = require('genjs-ecc');
 
 export default class Identity {
 

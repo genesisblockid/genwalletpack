@@ -17,7 +17,7 @@
   "dependencies": {
     "@walletpack/core": "^1.0.51",
     "eosjs": "^21.0.3",
-    "eosjs-ecc": "^4.0.7"
+    "genjs-ecc": "^4.0.8"
   },
   "gitHead": "70bd19f93b503618a79eb519eef082bfc40b16d7",
   "publishConfig": {
